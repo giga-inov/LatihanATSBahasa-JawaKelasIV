@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Basa Jawa Kelas 4 - ATS Game</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+        .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .btn-bounce:hover {
+            transform: translateY(-3px) scale(1.02);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-bounce:active {
+            transform: translateY(1px) scale(0.98);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-print-area, #certificate-print-area * {
+                visibility: visible;
+            }
+            #certificate-print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-emerald-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goToHome()">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-emerald-200">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-lg md:text-xl text-emerald-800 leading-tight">Basa Jawa Kelas 4</h1>
+                    <p class="text-xs text-slate-500 font-semibold">Kisi-kisi Asesmen Tengah Semester (ATS)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <div id="user-badge" class="hidden flex items-center bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full">
+                    <i class="fa-solid fa-user-ninja text-emerald-600 mr-2"></i>
+                    <span id="header-user-name" class="font-bold text-sm text-emerald-900">Siswa</span>
+                </div>
+                <button id="tts-toggle-btn" onclick="toggleAudio()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="Suara / Narator">
+                    <i id="tts-icon" class="fa-solid fa-volume-high text-emerald-600"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 flex flex-col justify-center">
+
+        <!-- SCREEN 1: WELCOME SCREEN -->
+        <section id="screen-welcome" class="w-full max-w-3xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 md:p-10 text-center relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-40 h-40 bg-yellow-300/30 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-emerald-400/20 rounded-full blur-2xl"></div>
+
+                <!-- Banner Header -->
+                <div class="inline-block bg-amber-100 border border-amber-300 text-amber-800 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wide uppercase mb-4 shadow-sm animate-float">
+                    🎯 Pembelajaran Interaktif ATS Kelas 4
+                </div>
+
+                <h2 class="font-heading text-2xl md:text-4xl font-extrabold text-slate-800 leading-snug mb-3">
+                    “Belajar Tidak Harus Membosankan:<br><span class="text-emerald-600">Ubah Soal Menjadi Game</span>”
+                </h2>
+                
+                <p class="text-slate-600 text-sm md:text-base max-w-xl mx-auto mb-8">
+                    Kuasaana materi unggah-ungguh basa Jawa, pacelathon, lan tata cara bertamu kanthi gampang lan nyenengake!
+                </p>
+
+                <!-- Input Form -->
+                <div class="bg-white p-6 rounded-2xl shadow-inner border border-slate-200 max-w-md mx-auto mb-6 text-left">
+                    <label for="input-user-name" class="block font-bold text-slate-700 text-sm mb-2">
+                        <i class="fa-solid fa-id-card text-emerald-500 mr-1"></i> Sapa Nanamu? (Masukkan Nama Lengkap):
+                    </label>
+                    <input type="text" id="input-user-name" placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-bold text-slate-800 text-base transition">
+                    <p id="name-error" class="text-xs text-rose-500 font-semibold mt-1.5 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i> Tulung isinen jenengmu luwih dhisik!</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto">
+                    <button onclick="startApp('materi')" class="btn-bounce flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-emerald-500/30 flex items-center justify-center space-x-2 text-base">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Waca Materi</span>
+                    </button>
+                    <button onclick="startApp('kuis')" class="btn-bounce flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-orange-500/30 flex items-center justify-center space-x-2 text-base">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Main Kuis (50 Soal)</span>
+                    </button>
+                </div>
+
+                <!-- Developer Footer Tag -->
+                <div class="mt-10 pt-4 border-t border-slate-200/80 text-xs text-slate-500 font-medium flex flex-col sm:flex-row justify-between items-center gap-2">
+                    <div><i class="fa-solid fa-code text-emerald-600 mr-1"></i> Pengembang: <span class="font-bold text-slate-700">Giga Inovation</span></div>
+                    <div><i class="fa-solid fa-phone text-emerald-600 mr-1"></i> WA: <a href="https://wa.me/6281329200985" target="_blank" class="font-bold text-emerald-600 hover:underline">081329200985</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: MATERI PEMBELAJARAN (COMPREHENSIVE) -->
+        <section id="screen-materi" class="hidden w-full">
+            <div class="glass-card rounded-3xl p-6 md:p-8 mb-6">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-200 pb-4 mb-6 gap-4">
+                    <div>
+                        <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-3 py-1 rounded-full uppercase">Modul Belajar</span>
+                        <h2 class="font-heading text-2xl md:text-3xl font-bold text-slate-800 mt-1">Materi ATS Bahasa Jawa Kelas 4</h2>
+                    </div>
+                    <button onclick="switchScreen('kuis')" class="btn-bounce bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow-md flex items-center">
+                        <i class="fa-solid fa-play mr-2"></i> Mulai Kuis 50 Soal
+                    </button>
+                </div>
+
+                <!-- Tab Navigation for Material -->
+                <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3 mb-6" id="materi-tabs">
+                    <button onclick="showTab(1)" id="tab-btn-1" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-emerald-600 text-white shadow-sm">1. Tata Cara Bertamu</button>
+                    <button onclick="showTab(2)" id="tab-btn-2" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">2. Urutan Bertamu</button>
+                    <button onclick="showTab(3)" id="tab-btn-3" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">3. Pacelathon</button>
+                    <button onclick="showTab(4)" id="tab-btn-4" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">4. Ngoko & Krama</button>
+                    <button onclick="showTab(5)" id="tab-btn-5" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">5. Tata Krama</button>
+                </div>
+
+                <!-- Tab Content 1: Tata Cara Bertamu -->
+                <div id="tab-content-1" class="tab-content text-slate-700 leading-relaxed space-y-4">
+                    <div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-100">
+                        <h3 class="font-heading text-xl font-bold text-emerald-900 mb-2"><i class="fa-solid fa-door-open text-emerald-600 mr-2"></i>1. Tata Cara Bertamu Sing Baik lan Bener</h3>
+                        <p class="text-sm md:text-base">Bertamu iku tegese teka ing omahe wong liya kanthi perwujudan tali silaturahmi utawa ana keperluan tartamtu. Nalika bertamu, kita kudu njaga sopan santun (trapsila).</p>
+                    </div>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <li class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-3 text-lg"></i>
+                            <div><strong>Ndodog Pintu & Salam:</strong> Ndodog pintu kanthi alon (maksimal ping 3) sarta ngaturake salam <em>"Kula nuwun"</em> utawa <em>"Assalamu'alaikum"</em>.</div>
+                        </li>
+                        <li class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-3 text-lg"></i>
+                            <div><strong>Ngenteni Dipersilakake:</strong> Ojo langsung mlebu sadurunge sing duwe omah nemoni lan ngaturi mlebu.</div>
+                        </li>
+                        <li class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-3 text-lg"></i>
+                            <div><strong>Cara Lungguh:</strong> Lungguh ing kursi sing wis disediakake sawise dipersilakake. Lungguhe sing jejeg, ora oleh selonjoran utawa ngangkat kaki.</div>
+                        </li>
+                        <li class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start">
+                            <i class="fa-solid fa-circle-check text-emerald-500 mt-1 mr-3 text-lg"></i>
+                            <div><strong>Nguncuri & Ngalap Suguhan:</strong> Yen disuguhi unjukan utawa panganan, aja dimangerti/diunjuk sadurunge dipersilakake <em>"Monggo diunjuk/didaar"</em>.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab Content 2: Urutan Bertamu -->
+                <div id="tab-content-2" class="tab-content hidden text-slate-700 leading-relaxed space-y-4">
+                    <div class="bg-teal-50/60 p-5 rounded-2xl border border-teal-100">
+                        <h3 class="font-heading text-xl font-bold text-teal-900 mb-2"><i class="fa-solid fa-list-ol text-teal-600 mr-2"></i>2. Urutan Bertamu Sing Bener</h3>
+                        <p class="text-sm md:text-base">Bertamu kudu manut urutan supaya wong sing diparani krasa diajeni lan ora keganggu.</p>
+                    </div>
+                    <div class="relative border-l-4 border-teal-400 pl-6 space-y-4 my-4 ml-3 text-sm">
+                        <div class="relative">
+                            <span class="absolute -left-[35px] bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">1</span>
+                            <h4 class="font-bold text-slate-800">Teka ing Wektu Sing Tepat</h4>
+                            <p class="text-slate-600">Aja bertamu ing wayah istirahat (jam turu siang utawa wengi banget).</p>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute -left-[35px] bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">2</span>
+                            <h4 class="font-bold text-slate-800">Ucap Salam lan Uluk Salam</h4>
+                            <p class="text-slate-600">Ndodog pintu karo ngucap "Kula nuwun".</p>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute -left-[35px] bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">3</span>
+                            <h4 class="font-bold text-slate-800">Ngaturake Maksud lan Tujuan</h4>
+                            <p class="text-slate-600">Sawise dipersilakake lungguh, aturake perlune teka kanthi basa sing sopan.</p>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute -left-[35px] bg-teal-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">4</span>
+                            <h4 class="font-bold text-slate-800">Pamitan (Nyuwun Pamit)</h4>
+                            <p class="text-slate-600">Yen wis rampung perlune, nyuwun pamit kanthi ngucapake matur nuwun marang sing duwe omah.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content 3: Pengertian Pacelathon -->
+                <div id="tab-content-3" class="tab-content hidden text-slate-700 leading-relaxed space-y-4">
+                    <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-100">
+                        <h3 class="font-heading text-xl font-bold text-amber-900 mb-2"><i class="fa-solid fa-comments text-amber-600 mr-2"></i>3. Tegese Pacelathon</h3>
+                        <p class="text-sm md:text-base"><strong>Pacelathon</strong> yaiku wacana utawa omongan interaktif antarane wong loro utawa luwih (percPercakapan / dialog) kanggo ngaturake panyuwun, pawarta, utawa maksud tartamtu.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-amber-800 mb-2"><i class="fa-solid fa-star text-amber-500 mr-1"></i> Ciri-ciri Pacelathon:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600">
+                                <li>Tindak dening 2 wong utawa luwih.</li>
+                                <li>Nggunakake kalimat guneman (kalimat langsung).</li>
+                                <li>Mawa unggah-ungguh basa sing trep (Ngoko / Krama).</li>
+                                <li>Panganggone basa disesuaikan karo lawan tutur.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-amber-800 mb-2"><i class="fa-solid fa-heart text-amber-500 mr-1"></i> Paugeran / Aturan Guneman:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-slate-600">
+                                <li>Ora kena medhot gunemane wong liya (menyela).</li>
+                                <li>Ngrungokake kanthi gemati lan patrap kang sopan.</li>
+                                <li>Nggunakake intonasi lan swara sing sepi/ora bentak-bentak.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content 4: Basa Ngoko & Krama -->
+                <div id="tab-content-4" class="tab-content hidden text-slate-700 leading-relaxed space-y-4">
+                    <div class="bg-purple-50/60 p-5 rounded-2xl border border-purple-100">
+                        <h3 class="font-heading text-xl font-bold text-purple-900 mb-2"><i class="fa-solid fa-language text-purple-600 mr-2"></i>4. Tata Basa Ngoko lan Krama</h3>
+                        <p class="text-sm md:text-base">Ragaman Basa Jawa kaperang dadi loro tatangan utama: <strong>Basa Ngoko</strong> lan <strong>Basa Krama</strong>.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-purple-200">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded-md">BASA NGOKO</span>
+                            <h4 class="font-bold text-slate-800 mt-2">Ngoko Lugu & Ngoko Alus</h4>
+                            <p class="text-slate-600 text-xs mt-1">Dinggo guneman karo kanca seumuran, wong sing luwih mudha, utawa wong tuwa marang anak.</p>
+                            <p class="mt-2 text-xs italic bg-slate-50 p-2 rounded">Tuladha: "Kowe mau mangan apa?"</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-purple-200">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-md">BASA KRAMA</span>
+                            <h4 class="font-bold text-slate-800 mt-2">Krama Lugu & Krama Alus (Inggil)</h4>
+                            <p class="text-slate-600 text-xs mt-1">Dinggo anak marang wong tuwa, murid marang guru, utawa marang wong sing durung diwenehi kenal.</p>
+                            <p class="mt-2 text-xs italic bg-slate-50 p-2 rounded">Tuladha: "Bapak nembe dhahar pisang."</p>
+                        </div>
+                    </div>
+
+                    <!-- Dictionary Mini Table -->
+                    <div class="overflow-x-auto mt-4">
+                        <table class="w-full text-left text-xs md:text-sm border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200">
+                            <thead class="bg-purple-600 text-white font-bold">
+                                <tr>
+                                    <th class="p-3">Tembung Ngoko</th>
+                                    <th class="p-3">Krama Lugu / Inggil</th>
+                                    <th class="p-3">Tegep (Bahasa Indonesia)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-medium">
+                                <tr><td class="p-2.5 font-bold">Mangan</td><td class="p-2.5 text-purple-700 font-bold">Dhahar / Nedi</td><td class="p-2.5">Makan</td></tr>
+                                <tr><td class="p-2.5 font-bold">Turu</td><td class="p-2.5 text-purple-700 font-bold">Sare / Tilem</td><td class="p-2.5">Tidur</td></tr>
+                                <tr><td class="p-2.5 font-bold">Lunga</td><td class="p-2.5 text-purple-700 font-bold">Tindak / Kisah</td><td class="p-2.5">Pergi</td></tr>
+                                <tr><td class="p-2.5 font-bold">Teka</td><td class="p-2.5 text-purple-700 font-bold">Rawuh / Dugi</td><td class="p-2.5">Datang</td></tr>
+                                <tr><td class="p-2.5 font-bold">Omah</td><td class="p-2.5 text-purple-700 font-bold">Dalem / Griya</td><td class="p-2.5">Rumah</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Content 5: Tata Krama lan Unggah-Ungguh -->
+                <div id="tab-content-5" class="tab-content hidden text-slate-700 leading-relaxed space-y-4">
+                    <div class="bg-blue-50/60 p-5 rounded-2xl border border-blue-100">
+                        <h3 class="font-heading text-xl font-bold text-blue-900 mb-2"><i class="fa-solid fa-hands-praying text-blue-600 mr-2"></i>5. Tata Krama lan Unggah-Ungguh</h3>
+                        <p class="text-sm md:text-base"><strong>Unggah-ungguh</strong> yaiku aturan tindak-tanduk, subasita, lan cara guneman sing sopan miturut adat Jawa.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs md:text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mb-2"><i class="fa-solid fa-person-walking"></i></div>
+                            <h4 class="font-bold text-slate-800">Sikap Awak (Subasita)</h4>
+                            <p class="text-slate-600 mt-1">Yen mlaku ing ngarepe wong tuwa kudu mbungkukake awak karo ngucap <em>"Nyuwun sewu / Nuwun sewu"</em>.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mb-2"><i class="fa-solid fa-hand-holding-hand"></i></div>
+                            <h4 class="font-bold text-slate-800">Menehi lan Nampa</h4>
+                            <p class="text-slate-600 mt-1">Nggunakake tangan tengen nalika menehi utawa nampa barang saka wong liya.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mb-2"><i class="fa-solid fa-face-smile"></i></div>
+                            <h4 class="font-bold text-slate-800">Polatan (Ekspresi)</h4>
+                            <p class="text-slate-600 mt-1">Nalika guneman kudu sumeh (senyum), ora mbesengut utawa mripat lirik-lirik sengit.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SCREEN 3: QUIZ / GAME MODE -->
+        <section id="screen-kuis" class="hidden w-full max-w-3xl mx-auto">
+            
+            <!-- Quiz Top Bar -->
+            <div class="flex justify-between items-center mb-4 bg-white/90 p-3.5 rounded-2xl shadow-sm border border-slate-200">
+                <button onclick="goToMateriFromQuiz()" class="btn-bounce bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-emerald-800 font-bold px-3.5 py-2 rounded-xl text-xs md:text-sm flex items-center transition border border-slate-300">
+                    <i class="fa-solid fa-arrow-left mr-2 text-emerald-600"></i> Kembali ke Materi
+                </button>
+                <div class="flex items-center space-x-3">
+                    <span id="quiz-streak" class="text-xs md:text-sm font-extrabold bg-amber-100 text-amber-800 px-3 py-1 rounded-full border border-amber-300">
+                        🔥 Streak: 0
+                    </span>
+                    <span id="quiz-score-badge" class="text-xs md:text-sm font-extrabold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-300">
+                        ⭐ Skor: 0
+                    </span>
+                </div>
+            </div>
+
+            <!-- Quiz Card -->
+            <div class="glass-card rounded-3xl p-5 md:p-8 relative">
+                
+                <!-- Progress bar -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-center text-xs md:text-sm font-bold text-slate-600 mb-2">
+                        <span>Soal No. <span id="q-number" class="text-emerald-600 text-base">1</span> / 50</span>
+                        <span id="q-category-tag" class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md text-xs">Tata Cara Bertamu</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                        <div id="quiz-progress" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-2/100 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <h3 id="question-text" class="text-base md:text-xl font-bold text-slate-800 leading-snug">
+                        Loading Soal...
+                    </h3>
+                </div>
+
+                <!-- Options -->
+                <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                    <!-- Options buttons injected dynamically -->
+                </div>
+
+                <!-- Feedback Box (Hidden initially) -->
+                <div id="feedback-box" class="hidden rounded-2xl p-4 mb-6 text-sm font-medium transition duration-200">
+                    <div id="feedback-title" class="font-extrabold text-base mb-1 flex items-center">
+                        <!-- Correct/Wrong text -->
+                    </div>
+                    <div id="feedback-explanation" class="text-slate-700">
+                        <!-- Explanation text -->
+                    </div>
+                </div>
+
+                <!-- Bottom Controller -->
+                <div class="flex justify-between items-center pt-2 border-t border-slate-200/80">
+                    <button id="btn-audio-question" onclick="speakCurrentQuestion()" class="text-slate-600 hover:text-emerald-600 font-bold text-xs md:text-sm flex items-center bg-slate-100 px-3 py-2 rounded-xl">
+                        <i class="fa-solid fa-volume-high mr-1.5 text-emerald-500"></i> Waca Soal
+                    </button>
+                    <button id="btn-next-question" onclick="nextQuestion()" class="hidden btn-bounce bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-md">
+                        Soal Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SCREEN 4: HASIL & SERTIFIKAT -->
+        <section id="screen-hasil" class="hidden w-full max-w-4xl mx-auto">
+            
+            <div class="text-center mb-6">
+                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-3 py-1 rounded-full uppercase">Hasil Akhir Kuis</span>
+                <h2 class="font-heading text-3xl font-extrabold text-slate-800 mt-1">Selamat, <span id="res-user-name" class="text-emerald-600">Siswa</span>! 🎉</h2>
+            </div>
+
+            <!-- Score Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <p class="text-xs text-slate-500 font-bold uppercase">Nilai Akhir</p>
+                    <p id="res-score" class="text-3xl font-extrabold text-emerald-600 mt-1">0</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <p class="text-xs text-slate-500 font-bold uppercase">Benar</p>
+                    <p id="res-correct" class="text-3xl font-extrabold text-teal-600 mt-1">0 / 50</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <p class="text-xs text-slate-500 font-bold uppercase">Salah</p>
+                    <p id="res-wrong" class="text-3xl font-extrabold text-rose-500 mt-1">0</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <p class="text-xs text-slate-500 font-bold uppercase">Predikat</p>
+                    <p id="res-predicate" class="text-lg font-extrabold text-amber-500 mt-2">Istimewa</p>
+                </div>
+            </div>
+
+            <!-- CERTIFICATE DISPLAY BOX -->
+            <div class="bg-slate-800 p-3 md:p-6 rounded-3xl shadow-2xl mb-8">
+                <div id="certificate-print-area" class="bg-white text-slate-800 p-6 md:p-10 rounded-2xl border-8 border-double border-amber-500 relative overflow-hidden font-serif">
+                    
+                    <!-- Decorative Corners -->
+                    <div class="absolute top-2 left-2 w-8 h-8 border-t-4 border-l-4 border-amber-600"></div>
+                    <div class="absolute top-2 right-2 w-8 h-8 border-t-4 border-r-4 border-amber-600"></div>
+                    <div class="absolute bottom-2 left-2 w-8 h-8 border-b-4 border-l-4 border-amber-600"></div>
+                    <div class="absolute bottom-2 right-2 w-8 h-8 border-b-4 border-r-4 border-amber-600"></div>
+
+                    <!-- Watermark -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+                        <i class="fa-solid fa-graduation-cap text-[180px]"></i>
+                    </div>
+
+                    <div class="text-center relative z-10">
+                        <p class="text-amber-700 tracking-widest uppercase font-bold text-xs md:text-sm">Giga Inovation • Sertifikat Penghargaan</p>
+                        <h2 class="font-heading font-extrabold text-2xl md:text-4xl text-slate-900 mt-2 mb-1">SERTIFIKAT KELULUSAN</h2>
+                        <p class="text-slate-500 italic text-xs md:text-sm">Diberikan atas kelulusan Uji Kompetensi Asesmen Tengah Semester (ATS)</p>
+
+                        <div class="my-6">
+                            <p class="text-xs text-slate-600 uppercase tracking-wider">Diberikan Kepada Siswa Prestasi:</p>
+                            <h3 id="cert-user-name" class="font-bold text-2xl md:text-4xl text-emerald-800 underline decoration-amber-400 decoration-2 underline-offset-8 mt-2">
+                                NAMA SISWA
+                            </h3>
+                        </div>
+
+                        <p class="text-slate-700 text-xs md:text-base max-w-xl mx-auto leading-relaxed">
+                            Telah berhasil menyelesaikan <strong>50 Soal Kuis ATS Bahasa Jawa Kelas 4</strong> materi Tata Cara Bertamu, Pacelathon, lan Unggah-Ungguh Basa Jawa kanthi hasil:
+                        </p>
+
+                        <div class="inline-block bg-amber-50 border border-amber-300 rounded-xl px-6 py-2 my-4">
+                            <span class="text-xs text-amber-800 font-bold uppercase block">Nilai Prestasi</span>
+                            <span id="cert-score-display" class="text-3xl font-extrabold text-amber-600">100 / 100</span>
+                        </div>
+
+                        <!-- Signatures & Developer info -->
+                        <div class="mt-8 pt-6 border-t border-slate-200 flex justify-between items-end text-left text-xs text-slate-600">
+                            <div>
+                                <p class="font-bold text-slate-800">Tanggal Selesai:</p>
+                                <p id="cert-date">13 September 2026</p>
+                                <p class="mt-2 text-[10px] text-slate-400">ID Sertifikat: GIGA-BJ4-<span id="cert-id">8921</span></p>
+                            </div>
+                            
+                            <!-- Gold Stamp Graphic -->
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-300 border-4 border-white shadow-md flex items-center justify-center mx-auto mb-1">
+                                    <i class="fa-solid fa-award text-amber-800 text-2xl"></i>
+                                </div>
+                                <span class="text-[10px] font-bold uppercase text-amber-800 block">Lulus Resmi</span>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="font-bold text-slate-800">Pengembang Utama:</p>
+                                <p class="font-bold text-emerald-700">Giga Inovation</p>
+                                <p class="text-[11px] font-semibold text-slate-500">WA: 081329200985</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action buttons after result -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                <button onclick="window.print()" class="btn-bounce bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg flex items-center justify-center">
+                    <i class="fa-solid fa-print mr-2"></i> Cetak Sertifikat
+                </button>
+                <button onclick="goToMateriFromQuiz()" class="btn-bounce bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg flex items-center justify-center">
+                    <i class="fa-solid fa-book-open mr-2"></i> Waca Materi Lagi
+                </button>
+                <button onclick="restartQuiz()" class="btn-bounce bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-2xl shadow-lg flex items-center justify-center">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Ulangi Kuis
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>Game Edukasi Bahasa Jawa Kelas 4 ATS &copy; 2026 • Dikembangkan oleh <strong class="text-emerald-700">Giga Inovation (081329200985)</strong></p>
+        </div>
+    </footer>
+
+    <script>
+        /* State Variables */
+        let userName = "";
+        let audioEnabled = true;
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let streak = 0;
+        let userAnswers = [];
+        let isAnswered = false;
+
+        /* Sound Effects using Web Audio API */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start(audioCtx.currentTime);
+                    osc.stop(audioCtx.currentTime + 0.4);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                    osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15); // E3
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+                    osc.start(audioCtx.currentTime);
+                    osc.stop(audioCtx.currentTime + 0.35);
+                } else if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                    osc.start(audioCtx.currentTime);
+                    osc.stop(audioCtx.currentTime + 0.08);
+                }
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
+        }
+
+        /* Text to Speech Voice Function */
+        function speakText(text) {
+            if (!audioEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel(); // Stop ongoing speech
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'id-ID';
+            utterance.rate = 0.95;
+            utterance.pitch = 1.1;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('tts-icon');
+            if (audioEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-emerald-600';
+                speakText("Suara aktif");
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        /* 50 Comprehensive Questions Dataset based on Kisi-Kisi ATS Bahasa Jawa Kelas 4 */
+        const questionsData = [
+            // 1-10: Tata cara bertamu yang baik dan benar
+            {
+                q: "Nalika bertamu ing omahe tanggamu, tindakan kapisan sing kudu ditindakake yaiku...",
+                options: ["A. Langsung mlebu ing ruang tamu", "B. Ndodog pintu lan ngucap salam (Kula nuwun)", "C. Ngenteni ing teras tanpa swara", "D. Muka pintu dhewe"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Bertamu sing bener kudu ndodog pintu alon lan ngucap salam 'Kula nuwun' minangka tanda njukuk izin."
+            },
+            {
+                q: "Pira jumlah thotokan (ketukan) pintu sing ideal nalika bertamu?",
+                options: ["A. 10 kali kanthi banter", "B. Maksimal 3 kali kanthi alon", "C. Bebas nganti lawang dibukak", "D. Ora usah dithotok"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Ndodog pintu luwih apik maksimal ping 3 kanthi nada sedhengan supaya ora ngganggu sing duwe omah."
+            },
+            {
+                q: "Yen durung dipersilakake lungguh dening sing duwe omah, apa sing kudu kita lakoni?",
+                options: ["A. Langsung turon ing kursi", "B. Ngadeg kanthi sopan ngenteni diaturi lungguh", "C. Ninggalake omah iku", "D. Lungguh ing meja"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Tata krama bertamu yaiku ngadeg kanthi sopan nganti wong sing duwe omah ngaturi 'Monggo lungguh'."
+            },
+            {
+                q: "Nalika disuguhi unjukan karo sing duwe omah, sikape kita sing bener yaiku...",
+                options: ["A. Langsung diunjuk nganti telas", "B. Ngenteni dipersilakake 'Monggo diunjuk' banjur diunjuk", "C. Ditolak kanthi kasar", "D. Digawa bali unjukane"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Sopan santune yen disuguhi yaiku ngenteni diaturi / dipersilakake rumiyin dening tuan rumah."
+            },
+            {
+                q: "Sikap lungguh sing sopan nalika bertamu yaiku...",
+                options: ["A. Selonjoran lan ngangkat sikil ing kursi", "B. Lungguh jejeg lan trapsila", "C. Senderan nganti meh turu", "D. Lungguh ing lantai"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Lungguh jejeg lan trapsila nuduhake rasa ngajeni marang sing duwe omah."
+            },
+            {
+                q: "Wektu sing Kurang Trep (tidak cocok) kanggo bertamu yaiku...",
+                options: ["A. Jam 09.00 esuk", "B. Jam 16.00 sore", "C. Jam 13.00 (wayah istirahat/turu siang)", "D. Jam 10.00 esuk"],
+                answer: 2,
+                category: "Tata Cara Bertamu",
+                explain: "Wayah istirahat kayata tengah wengi utawa jam turu siang ora becik kanggo bertamu."
+            },
+            {
+                q: "Nalika mlebu omahe wong liya, sepatu utawa sandal luwih becik...",
+                options: ["A. Dideleh ing ndhuwur meja", "B. Copot lan dideleh rapi ing njobo/papan sandal", "C. Dibuwang ing pelataran", "D. Dipakai mlebu nganti kamar"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Sandal utawa sepatu kudu dicopot lan ditata rapi ing papan kang wis disediakake."
+            },
+            {
+                q: "Ukara salam khas Basa Jawa nalika bertamu yaiku...",
+                options: ["A. Sugeng dalu", "B. Kula nuwun", "C. Maturnuwun", "D. Sampun"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "'Kula nuwun' yaiku ukarane wong Jawa nalika teka bertamu ing omahe wong liya."
+            },
+            {
+                q: "Supaya sing duwe omah ora ribet, bertamu iku becike...",
+                options: ["A. Suwe banget nganti wengi", "B. Cukup lan weruh wektu (ora suwe-suwe tanpa tujuan)", "C. Mengine 3 dina tanpa pamit", "D. Njaluk mangan bola-bali"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Bertamu kudu ngerti wektu lan ora mepet wektu istirahate sing duwe omah."
+            },
+            {
+                q: "Sadurunge mulih sawise bertamu, kita kudu...",
+                options: ["A. Mlayu metu tanpa swara", "B. Maturnuwun lan nyuwun pamit kanthi sopan", "C. Njaluk oleh-oleh", "D. Mateni lampu omah"],
+                answer: 1,
+                category: "Tata Cara Bertamu",
+                explain: "Pamitan lan matur nuwun minangka penutup bertamu sing ngemot unggah-ungguh."
+            },
+
+            // 11-20: Urutan bertamu dengan benar
+            {
+                q: "Urutan bertamu kapisan sing bener sadurunge mlebu omah yaiku...",
+                options: ["A. Nyuwun pamit", "B. Ndodog pintu & Uluk salam", "C. Nguncuri suguhan", "D. Lungguh ing kursi"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Urutan paling awal nalika bertamu yaiku ndodog pintu lan ngucap salam."
+            },
+            {
+                q: "Sawise ndodog pintu lan dibukakake karo sing duwe omah, langkah urutan sateruse yaiku...",
+                options: ["A. langsung mlayu menyang dapur", "B. Ngaturake salam lan salam-salaman/sapa", "C. Turu ing kasur", "D. Njaluk diwenehi duit"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Sawise pintu dibukak, kita nyapa lan ngaturake salam marang sing duwe omah."
+            },
+            {
+                q: "Urutan bertamu nomer telu sawise diaturi mlebu lan dipersilakake lungguh yaiku...",
+                options: ["A. Ngaturake maksud lan tujuan bertamu", "B. Langsung pamitan bali", "C. Mangan kabeh suguhan", "D. Dolan HP tanpa ngomong"],
+                answer: 0,
+                category: "Urutan Bertamu",
+                explain: "Sawise lungguh, kita ngaturake apa maksud lan tujuan kita teka bertamu."
+            },
+            {
+                q: "Yen wis rampung ngandharake tujuan lan percakapan, urutan pungkasan yaiku...",
+                options: ["A. Ndodog pintu maneh", "B. Nyuwun pamit lan ngucapake matur nuwun", "C. Pindah menyang kamar", "D. Meneng wae"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Urutan pungkasan (terakhir) bertamu yaiku nyuwun pamit lan matur nuwun."
+            },
+            {
+                q: "Gatekna urutan iki:\n(1) Pamitan\n(2) Salam & Kula nuwun\n(3) Ngaturake tujuan\n(4) Diaturi lungguh\nUrutan bertamu sing bener yaiku...",
+                options: ["A. (2) - (4) - (3) - (1)", "B. (1) - (2) - (3) - (4)", "C. (3) - (2) - (1) - (4)", "D. (4) - (3) - (2) - (1)"],
+                answer: 0,
+                category: "Urutan Bertamu",
+                explain: "Urutan sing bener: (2) Salam -> (4) Diaturi lungguh -> (3) Ngaturake tujuan -> (1) Pamitan."
+            },
+            {
+                q: "Nalika ngaturake tujuan bertamu, basa sing digunakake marang wong tuwa yaiku...",
+                options: ["A. Basa Ngoko Lugu", "B. Basa Krama Alus", "C. Basa Indonesia kasar", "D. Basa Gaul"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Krama Alus digunakake nalika guneman karo wong sing luwih tuwa."
+            },
+            {
+                q: "Opo sing kudu ditindakake yen wong sing diparani ora ana ing omah sawise diucapi salam ping 3?",
+                options: ["A. Mendongkel lawang", "B. Balik kanthi sopan lan bertamu ing wektu liya", "C. Bengok-bengok ing latar", "D. Ngenteni ing njero omah"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Yen wis ping 3 ora ana wangsulan, kita kudu bali lan golek wektu liya."
+            },
+            {
+                q: "Tujuan utama ngaturake 'Pamitan' nalika arep bali bertamu yaiku...",
+                options: ["A. Pamer yen arep lunga", "B. Wujud rasa ngurmati lan tata krama", "C. Supaya diwenehi sangu", "D. Supaya dijagani jalan"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Pamitan nuduhake apresiasi lan pakurmatan marang tuan rumah."
+            },
+            {
+                q: "Nalika pamitan badhe bali, trapsila sing bener yaiku...",
+                options: ["A. Bersalaman lan ngucapake sugeng tinggal/matur nuwun", "B. Langsung mlayu metu lawang", "C. Menyiul-nyiul", "D. Nuthuk pintu"],
+                answer: 0,
+                category: "Urutan Bertamu",
+                explain: "Bersalaman (sungkem/salam) minangka pakurmatan pungkasan."
+            },
+            {
+                q: "Sikip kang KUDU dihindari nalika proses bertamu yaiku...",
+                options: ["A. Ngomong kanthi alus", "B. Membuka lemari utawa barang pribadine tuan rumah tanpa izin", "C. Mangan suguhan sawise dipersilakake", "D. Salam pas teka"],
+                answer: 1,
+                category: "Urutan Bertamu",
+                explain: "Ora kena ndemek utawa mbukak barang pribadine tuan rumah tanpa izin."
+            },
+
+            // 21-30: Pengertian pacelathon
+            {
+                q: "Apa kang diarani Pacelathon ing basa Jawa?",
+                options: ["A. Karangan puisi Jawa", "B. Percakapan / omongan interaktif antarane wong loro utawa luwih", "C. Tembang macapat", "D. Cerita dongeng"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Pacelathon yaiku wacan wujud percakapan utawa dialog antarane paraga loro utawa luwih."
+            },
+            {
+                q: "Jumlah paraga (tokoh) paling sethithik ing pacelathon yaiku...",
+                options: ["A. 1 wong", "B. 2 wong", "C. 10 wong", "D. Ora ana paragane"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Pacelathonbutuhake minimal 2 wong supaya ana interaksi komunikasi."
+            },
+            {
+                q: "Ukara sing digunakake ing teks pacelathon yaiku wujud...",
+                options: ["A. Ukara tidak langsung", "B. Ukara guneman / kalimat langsung", "C. Ukara perintah bae", "D. Ukara pitakon bae"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Teks pacelathon nggunakake ukara langsung (ditandai tanda petik ing skrip)."
+            },
+            {
+                q: "Panganggone basa ing pacelathon kudu disesuaikake karo...",
+                options: ["A. Klambi sing dipakai", "B. Sapa sing diajak guneman (lawan tutur)", "C. Cuaca ing njaba", "D. Rega barang"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Unggah-ungguh basa gumantung sapa lawan tutur (seumuran utawa wong tuwa)."
+            },
+            {
+                q: "Wong kang diajak guneman diarani...",
+                options: ["A. Pamicara", "B. Lawan tutur / Panyemak", "C. Sutradara", "D. Penulis"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Wong sing diajak omongan diarani lawan tutur."
+            },
+            {
+                q: "Tindakan sing ORA KENA ditindakake nalika wong liya lagi pacelathon yaiku...",
+                options: ["A. Ngrungokake kanthi temen", "B. Medhot guneman (menyela) ing tengah-tengah", "C. Manthuk-manthuk sopan", "D. Meneng ngrungokake"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Ora sopan yen medhot (menyela) gunemane wong liya sing durung rampung."
+            },
+            {
+                q: "Nalika Pacelathon karo Bapak utawa Ibu Guru, basa sing digunakake yaiku...",
+                options: ["A. Ngoko Lugu", "B. Krama Alus / Inggil", "C. Basa Jawa kasar", "D. Basa Indonesia ngoko"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Marang Guru kudu nggunakake Basa Krama Alus minangka wujud rasa ngurmati."
+            },
+            {
+                q: "Karakter pacelathon antarane kanca seumuran biasane nggunakake basa...",
+                options: ["A. Krama Inggil", "B. Ngoko Lugu", "C. Krama Desa", "D. Basa Kawi"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Antarane kanca akrab seumuran nggunakake basa Ngoko Lugu."
+            },
+            {
+                q: "Swarane wong sing lagi pacelathon kudu...",
+                options: ["A. Bentak-bentak lan seru banget", "B. Pas, cetha, lan mawa nada sopan", "C. Bisik-bisik ora krungu", "D. Nangis-nangis"],
+                answer: 1,
+                category: "Pacelathon",
+                explain: "Intonasi swara kudu cetha, pas, lan mawa intonasi sopan."
+            },
+            {
+                q: "Sing kalebu unsur-unsur ing teks pacelathon yaiku...",
+                options: ["A. Tokoh/paraga, topik guneman, lan basa kang trep", "B. Juara, hadiah, lan piala", "C. Resep panganan", "D. Gambar pemandangan"],
+                answer: 0,
+                category: "Pacelathon",
+                explain: "Pacelathon kudu ana paragane, tema/topik percakapan, lan unggah-ungguh basa."
+            },
+
+            // 31-40: Tata basa ngoko dan krama
+            {
+                q: "Basa Ngoko dipundhake dadi loro, yaiku...",
+                options: ["A. Ngoko Lugu lan Ngoko Alus", "B. Ngoko Kasar lan Ngoko Ndeso", "C. Ngoko Jawa lan Ngoko Sunda", "D. Ngoko Gedhe lan Ngoko Cilik"],
+                answer: 0,
+                category: "Ngoko & Krama",
+                explain: "Ragaman basa Ngoko kaperang dadi Ngoko Lugu lan Ngoko Alus."
+            },
+            {
+                q: "Basa Krama sing digunakake kanggo ngurmati wong tuwa yaiku...",
+                options: ["A. Krama Lugu", "B. Krama Alus / Inggil", "C. Ngoko Lugu", "D. Basa Kawi"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "Krama Alus digunakake kanggo ngurmati tiyang sepuh utawa tiyang ingkang kinurmatan."
+            },
+            {
+                q: "Tembung 'Mangan' yen dikramakake Alus marang Bapak dadi...",
+                options: ["A. Nedi", "B. Dhahar", "C. Turu", "D. Tumbas"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "Mangan kanggo wong tuwa/bapak yaiku 'Dhahar'."
+            },
+            {
+                q: "Tembung 'Turu' basa Krama Inggile yaiku...",
+                options: ["A. Sare", "B. Tilem", "C. Melek", "D. Siram"],
+                answer: 0,
+                category: "Ngoko & Krama",
+                explain: "Krama Inggil saka tembung turu yaiku 'Sare'."
+            },
+            {
+                q: "Tembung 'Omah' yen dikramakake kanggo ngurmati omahe Pak Guru dadi...",
+                options: ["A. Griya", "B. Dalem", "C. Gubug", "D. Kamar"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "Omahe wong liya/guru sing dikurmati yaiku 'Dalem'."
+            },
+            {
+                q: "Ukara 'Ibu nembe mangan roti' yen diowahi menyang Krama Alus sing bener yaiku...",
+                options: ["A. Ibu nembe nedi roti", "B. Ibu nembe dhahar roti", "C. Ibu lagi mangan roti", "D. Ibu sare roti"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "'Mangan' kanggo Ibu diowahi dadi 'dhahar'."
+            },
+            {
+                q: "Tembung Krama Inggil saka 'Lunga' yaiku...",
+                options: ["A. Tindak", "B. Kisah", "C. Dugi", "D. Mulih"],
+                answer: 0,
+                category: "Ngoko & Krama",
+                explain: "Krama Inggil 'Lunga' yaiku 'Tindak'."
+            },
+            {
+                q: "Tembung 'Adus' kanggo awake dhewe yaiku 'adus', nanging yen kanggo Bapak yaiku...",
+                options: ["A. Siram", "B. Wawuh", "C. Kumbah", "D. Wijik"],
+                answer: 0,
+                category: "Ngoko & Krama",
+                explain: "Bapak 'siram' (Krama Inggil saka adus)."
+            },
+            {
+                q: "Sapa sing pantes diajak guneman nggunakake Basa Ngoko Lugu?",
+                options: ["A. Kepala Sekolah", "B. Kanca sekelas sing wis akrab", "C. Ibu lan Bapak", "D. Kakek lan Nenek"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "Ngoko Lugu digunakake kanggo kanca seumuran sing wis akrab."
+            },
+            {
+                q: "Ukara 'Bapak tindak menyang kantor' tegese ing basa Indonesia yaiku...",
+                options: ["A. Ayah tidur di kantor", "B. Ayah pergi ke kantor", "C. Ayah makan di kantor", "D. Ayah pulang dari kantor"],
+                answer: 1,
+                category: "Ngoko & Krama",
+                explain: "'Tindak' tegese pergi/berangkat."
+            },
+
+            // 41-50: Tata krama dan unggah-ungguh
+            {
+                q: "Apa tegese tembung Unggah-Ungguh iku?",
+                options: ["A. Cara mlayu sing cepet", "B. Tata krama, sopan santun, lan aturan tindak-tanduk", "C. Jinis panganan tradisional Jawa", "D. Tembang Jawa"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Unggah-ungguh yaiku tata krama lan sopan santun miturut adat lan budaya Jawa."
+            },
+            {
+                q: "Nalika mlaku ing ngarepe wong tuwa sing lagi lungguh, sikape kita kudu...",
+                options: ["A. Mlayu banter", "B. Awak dibungkukake sithik karo ngucap 'Nuwun sewu'", "C. Pethengatan", "D. Melompat-lompat"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Mbungkukake awak lan ngucap 'Nuwun sewu' minangka subasita mlaku ing ngarep tiyang sepuh."
+            },
+            {
+                q: "Nalika diparingi hadiah utawa pitulungan dening wong liya, kita wajib ngaturake...",
+                options: ["A. Nyuwun ngapura", "B. Matur nuwun", "C. Kula nuwun", "D. Sugeng enjang"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Matur nuwun yaiku ungkapan rasa terima kasih."
+            },
+            {
+                q: "Tangan sing digunakake nalika menehi utawa nampa barang saka wong liya yaiku...",
+                options: ["A. Tangan kiwa", "B. Tangan tengen", "C. Kaki tengen", "D. Tangan loro-lorone dilipat"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Ing adat Jawa, nampa utawa menehi barang kudu nggunakake tangan tengen minangka tanda sopan."
+            },
+            {
+                q: "Nalika nggawe kesalahan marang kanca utawa wong tuwa, kita kudu langsung ngucap...",
+                options: ["A. Maturnuwun", "B. Nyuwun pangapunten (nyuwun ngapura)", "C. Kula nuwun", "D. Sugeng rawuh"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Yen salah kudu wani nyuwun pangapunten (minta maaf)."
+            },
+            {
+                q: "Sikip mripat utawa polatan (wajah) nalika diajak guneman karo wong tuwa kudu...",
+                options: ["A. Mbesengut lan mecutu", "B. Sumeh (senyum) lan nggatekake kanthi sopan", "C. Deleng ndhuwur langit-langit", "D. Merem"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Polatan kudu sumeh lan nggatekake pamicara kanthi becik."
+            },
+            {
+                q: "Tuladha sikap trapsila (tata krama) ing sekolah yaiku...",
+                options: ["A. Saliman karo Bapak/Ibu Guru pas ketemu", "B. Mbuwang sampah ing kolong meja", "C. Bengok-bengok ing kelas", "D. Nggambar tembok sekolah"],
+                answer: 0,
+                category: "Tata Krama",
+                explain: "Saliman lan sapa marang Guru kalebu tuladha trapsila ing sekolah."
+            },
+            {
+                q: "Supaya sesambungan karo kanca tetep rukun lan tentrem, kita kudu njaga...",
+                options: ["A. Unggah-ungguh lan lathi (cangkem/omongan)", "B. Egois", "C. Pengen menang dhewe", "D. Tukaran saben dina"],
+                answer: 0,
+                category: "Tata Krama",
+                explain: "Njaga tutur kata lan sopan santun bakal ngraketake kerukunan."
+            },
+            {
+                q: "Yen bapak lagi maos koran ing ruang tamu, tindakan anak sing nduweni unggah-ungguh yaiku...",
+                options: ["A. Ngalang-alangi koran", "B. Ora rame lan ora nyetel TV seru banget", "C. Mbalang bola ing njero ruang tamu", "D. Jerit-jerit"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Ora nggawe suwara rame nalika wong tuwa lagi konsentrasi/istirahat."
+            },
+            {
+                q: "Manfaat yen kita seneng nrapake unggah-ungguh lan tata krama ing urip bendina yaiku...",
+                options: ["A. Mungsuhe tambah akeh", "B. Senangake atine wong tuwa lan disenengi kanca", "C. Diurusi polisi", "D. Dadi bodho"],
+                answer: 1,
+                category: "Tata Krama",
+                explain: "Wong sing duwe tata krama bakal diajeni, disenengi kanca, lan gawe seneng wong tuwane."
+            }
+        ];
+
+        /* Application Logic Functions */
+
+        function goToHome() {
+            playSound('click');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+            document.getElementById('screen-materi').classList.add('hidden');
+            document.getElementById('screen-kuis').classList.add('hidden');
+            document.getElementById('screen-hasil').classList.add('hidden');
+            document.getElementById('user-badge').classList.add('hidden');
+        }
+
+        function startApp(mode) {
+            const nameInput = document.getElementById('input-user-name').value.trim();
+            const errorMsg = document.getElementById('name-error');
+
+            if (!nameInput) {
+                errorMsg.classList.remove('hidden');
+                playSound('wrong');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            userName = nameInput;
+            document.getElementById('header-user-name').textContent = userName;
+            document.getElementById('user-badge').classList.remove('hidden');
+            playSound('click');
+
+            // Speech greeting with student's name
+            speakText(`Sugeng rawuh ${userName}, ayo sinau Basa Jawa bareng Giga Inovation!`);
+
+            if (mode === 'materi') {
+                switchScreen('materi');
+            } else {
+                restartQuiz();
+            }
+        }
+
+        function switchScreen(screenName) {
+            playSound('click');
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-materi').classList.add('hidden');
+            document.getElementById('screen-kuis').classList.add('hidden');
+            document.getElementById('screen-hasil').classList.add('hidden');
+
+            if (screenName === 'materi') {
+                document.getElementById('screen-materi').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenName === 'kuis') {
+                document.getElementById('screen-kuis').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (screenName === 'hasil') {
+                document.getElementById('screen-hasil').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function goToMateriFromQuiz() {
+            switchScreen('materi');
+            speakText(`${userName}, kowe saiki bali menyang materi pembelajaran.`);
+        }
+
+        /* Material Tab Logic */
+        function showTab(tabId) {
+            playSound('click');
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`tab-content-${i}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-btn-${i}`);
+                btn.className = "tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200";
+            }
+            document.getElementById(`tab-content-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            activeBtn.className = "tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold bg-emerald-600 text-white shadow-sm";
+        }
+
+        /* Quiz Engine Logic */
+        function restartQuiz() {
+            currentQuestionIdx = 0;
+            score = 0;
+            streak = 0;
+            userAnswers = [];
+            switchScreen('kuis');
+            updateQuizHeader();
+            loadQuestion();
+        }
+
+        function updateQuizHeader() {
+            document.getElementById('quiz-streak').textContent = `🔥 Streak: ${streak}`;
+            document.getElementById('quiz-score-badge').textContent = `⭐ Skor: ${score}`;
+        }
+
+        function loadQuestion() {
+            isAnswered = false;
+            const qData = questionsData[currentQuestionIdx];
+            
+            // Progress Bar & Labels
+            document.getElementById('q-number').textContent = currentQuestionIdx + 1;
+            document.getElementById('q-category-tag').textContent = qData.category;
+            const progressPercent = ((currentQuestionIdx + 1) / questionsData.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+
+            // Question Text
+            document.getElementById('question-text').textContent = qData.q;
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = "";
+
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-3.5 md:p-4 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50/50 hover:border-emerald-300 font-semibold text-sm md:text-base text-slate-700 transition flex items-center shadow-sm";
+                btn.onclick = () => selectAnswer(idx);
+                btn.innerHTML = `<span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 font-bold flex items-center justify-center mr-3 text-xs shrink-0 border border-slate-300">${String.fromCharCode(65+idx)}</span> <span>${opt.substring(3)}</span>`;
+                container.appendChild(btn);
+            });
+
+            // Hide feedback and Next button
+            document.getElementById('feedback-box').className = "hidden rounded-2xl p-4 mb-6 text-sm font-medium transition duration-200";
+            document.getElementById('btn-next-question').classList.add('hidden');
+
+            // Speak question voice automatically if desired or via button
+        }
+
+        function speakCurrentQuestion() {
+            const qData = questionsData[currentQuestionIdx];
+            speakText(`Soal nomer ${currentQuestionIdx + 1}. ${qData.q}`);
+        }
+
+        function selectAnswer(optIdx) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const qData = questionsData[currentQuestionIdx];
+            const isCorrect = (optIdx === qData.answer);
+            const container = document.getElementById('options-container');
+            const buttons = container.querySelectorAll('.option-btn');
+
+            userAnswers.push({
+                question: qData.q,
+                userChoice: optIdx,
+                correctChoice: qData.answer,
+                isCorrect: isCorrect
+            });
+
+            // Highlight buttons
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === qData.answer) {
+                    btn.className = "w-full text-left p-3.5 md:p-4 rounded-xl border-2 border-emerald-500 bg-emerald-100/80 text-emerald-900 font-bold text-sm md:text-base flex items-center shadow-sm";
+                } else if (idx === optIdx && !isCorrect) {
+                    btn.className = "w-full text-left p-3.5 md:p-4 rounded-xl border-2 border-rose-400 bg-rose-100/80 text-rose-900 font-bold text-sm md:text-base flex items-center shadow-sm";
+                }
+            });
+
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackExp = document.getElementById('feedback-explanation');
+
+            if (isCorrect) {
+                playSound('correct');
+                score += 2; // 50 questions * 2 = 100 points max
+                streak += 1;
+                feedbackBox.className = "block bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-2xl p-4 mb-6 text-sm font-medium";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-xl mr-2"></i> Pinter Banget ${userName}! Jawabanmu BENER!`;
+                feedbackExp.textContent = qData.explain;
+                
+                // Voice compliment mentioning student name
+                const compliments = [
+                    `Hebat banget ${userName}! Jawabanmu bener!`,
+                    `Pinter sekali ${userName}!`,
+                    `Luar biasa ${userName}, teruskan!`,
+                    `Jos gandos ${userName}!`
+                ];
+                const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+                speakText(randomCompliment);
+            } else {
+                playSound('wrong');
+                streak = 0;
+                feedbackBox.className = "block bg-rose-50 border border-rose-300 text-rose-900 rounded-2xl p-4 mb-6 text-sm font-medium";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-xl mr-2"></i> Waduh ${userName}, Jawabanmu kurang tepat!`;
+                feedbackExp.textContent = `Jawaban sing bener yaiku: ${qData.options[qData.answer]}. \nPenjelasan: ${qData.explain}`;
+                
+                speakText(`Kurang tepat ${userName}. Aja putus asa, ayo sinau maneh!`);
+            }
+
+            updateQuizHeader();
+            document.getElementById('btn-next-question').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            currentQuestionIdx++;
+            if (currentQuestionIdx < questionsData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            switchScreen('hasil');
+            
+            const totalQuestions = questionsData.length;
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const wrongCount = totalQuestions - correctCount;
+            const finalScore = Math.round((correctCount / totalQuestions) * 100);
+
+            // Populate Results Screen
+            document.getElementById('res-user-name').textContent = userName;
+            document.getElementById('res-score').textContent = finalScore;
+            document.getElementById('res-correct').textContent = `${correctCount} / ${totalQuestions}`;
+            document.getElementById('res-wrong').textContent = wrongCount;
+
+            let predicate = "Kurang";
+            if (finalScore >= 90) predicate = "Sangat Istimewa ⭐⭐⭐";
+            else if (finalScore >= 75) predicate = "Sangat Baik ⭐⭐";
+            else if (finalScore >= 60) predicate = "Cukup Baik ⭐";
+            else predicate = "Kudu Sinau Maneh 📚";
+
+            document.getElementById('res-predicate').textContent = predicate;
+
+            // Certificate Details
+            document.getElementById('cert-user-name').textContent = userName.toUpperCase();
+            document.getElementById('cert-score-display').textContent = `${finalScore} / 100`;
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('cert-date').textContent = dateStr;
+            document.getElementById('cert-id').textContent = Math.floor(1000 + Math.random() * 9000);
+
+            // Victory voice announcement mentioning student name
+            speakText(`Selamat ${userName}! Kowe wis ngrampungake kuis ATS Basa Jawa Kelas papat kanthi nilai ${finalScore}! Sertifikatmu wis siap!`);
+        }
+
+        // Initialize default view
+        window.onload = function() {
+            goToHome();
+        };
+    </script>
+</body>
+</html>
